@@ -1,11 +1,11 @@
 import Navbar from "./Navbar";
 import { Outlet, useNavigate } from "react-router-dom";
-import Fotter from "./Fotter";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userslice";
 import { useEffect } from "react";
 import { base_url } from "../utils/baseUrl";
+import Footer from "./Footer"
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Body = () => {
     <>
       <Navbar />
       <Outlet />
-      <Fotter />
+      <Footer />
     </>
   );
 };
