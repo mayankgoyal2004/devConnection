@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Button, TextField, Typography, Box, Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import FeedCard from "./FeedCard";
 import axios from "axios";
@@ -22,9 +21,9 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      setError("")
+      setError("");
       const response = await axios.patch(
-        base_url+"/profile/update",
+        base_url + "/profile/update",
         {
           firstName,
           lastName,
@@ -46,6 +45,7 @@ export default function Profile() {
       console.error(error);
     }
   };
+
   useEffect(() => {
     if (user) {
       setFirstName(user.firstName || "");
@@ -59,122 +59,113 @@ export default function Profile() {
 
   return (
     user && (
-      <div className="flex justify-center items-center gap-5">
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          minHeight="100vh"
-          sx={{
-            background: "linear-gradient(to right, #ece9e6, #ffffff)",
-          }}
-        >
-          <Paper
-            elevation={4}
-            sx={{
-              p: 5,
-              width: 380,
-              borderRadius: 4,
-              background: "#fff",
-              boxShadow: "0 8px 30px rgba(0,0,0,0.1)",
-            }}
-          >
-            <Typography
-              variant="h4"
-              textAlign="center"
-              color="primary.main"
-              mb={2}
-              fontWeight={600}
-            >
-              Your Profile
-            </Typography>
+      <div className="flex flex-col lg:flex-row justify-center items-start gap-10 p-6 min-h-screen bg-gradient-to-r from-gray-100 to-white">
+        {/* Profile Form Card */}
+        <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+          <h2 className="text-3xl font-bold text-center mb-2 text-indigo-600">
+            Your Profile
+          </h2>
+          <p className="text-sm text-gray-500 text-center mb-4">
+            Update your details
+          </p>
 
-            {error && (
-              <Typography
-                variant="body2"
-                color="error"
-                mb={2}
-                textAlign="center"
-                sx={{ textTransform: "capitalize" }}
-              >
-                {error + " Please try again"}
-              </Typography>
-            )}
+          {error && (
+            <div className="text-red-600 text-sm text-center mb-3 capitalize">
+              {error + " Please try again"}
+            </div>
+          )}
 
-            <form onSubmit={handleSubmit}>
-              <TextField
-                fullWidth
-                label="First Name"
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">First Name</span>
+              </label>
+              <input
                 type="text"
+                className="input input-bordered"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                margin="normal"
                 required
               />
+            </div>
 
-              <TextField
-                fullWidth
-                label="Last Name"
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Last Name</span>
+              </label>
+              <input
                 type="text"
+                className="input input-bordered"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                margin="normal"
                 required
               />
-              <TextField
-                fullWidth
-                label="Age"
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Age</span>
+              </label>
+              <input
                 type="number"
+                className="input input-bordered"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
-                margin="normal"
                 required
               />
-              <TextField
-                fullWidth
-                label="Gender"
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Gender</span>
+              </label>
+              <input
                 type="text"
+                className="input input-bordered"
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-                margin="normal"
                 required
               />
-              <TextField
-                fullWidth
-                label="Photo"
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
                 type="text"
+                className="input input-bordered"
                 value={photos}
                 onChange={(e) => setPhotoUrl(e.target.value)}
-                margin="normal"
                 required
               />
-              <TextField
-                fullWidth
-                label="about"
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">About</span>
+              </label>
+              <input
                 type="text"
+                className="input input-bordered"
                 value={about}
                 onChange={(e) => setAbout(e.target.value)}
-                margin="normal"
                 required
               />
+            </div>
 
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                size="large"
-                sx={{ mt: 3 }}
-              >
-                Save Profile
-              </Button>
-            </form>
-          </Paper>
-        </Box>
+            <button type="submit" className="btn btn-primary w-full mt-3">
+              Save Profile
+            </button>
+          </form>
+        </div>
+
         <FeedCard user={{ firstName, lastName, age, about, photos, gender }} />
+
         {showtost && (
-          <div className="toast toast-top toast-center">
+          <div className="toast toast-top toast-center z-50">
             <div className="alert alert-success">
-              <span>Profile update successfully.</span>
+              <span>Profile updated successfully.</span>
             </div>
           </div>
         )}

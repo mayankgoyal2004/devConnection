@@ -1,14 +1,4 @@
 import React, { useState } from "react";
-import {
-  Button,
-  TextField,
-  Typography,
-  Box,
-  Paper,
-  InputAdornment,
-  IconButton,
-} from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 import { base_url } from "../utils/baseUrl";
 import { useDispatch } from "react-redux";
@@ -42,79 +32,67 @@ export default function Login() {
   };
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="100vh"
-      bgcolor="linear-gradient(to right, #ece9e6, #ffffff)"
-    >
-      <Paper
-        elevation={4}
-        sx={{
-          p: 5,
-          width: 380,
-          borderRadius: 4,
-          background: "#fff",
-          boxShadow: "0 8px 30px rgba(0,0,0,0.1)",
-        }}
-      >
-        <Typography variant="h4" textAlign="center" className="text-gray-700" mb={2} fontWeight={600}>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-100 to-white">
+      <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-sm">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
           Welcome Back 👋
-        </Typography>
-        <Typography variant="body2" textAlign="center" color="text.secondary" mb={3}>
+        </h1>
+        <p className="text-sm text-center text-gray-500 mb-4">
           Please login to your account
-        </Typography>
+        </p>
 
         {error && (
-          <Typography variant="body2" color="error" mb={2} textAlign="center" className="capitalize">
-            {error +" "+"Please try again"}
-          </Typography>
+          <div className="text-red-600 text-sm text-center mb-3 capitalize">
+            {error + " Please try again"}
+          </div>
         )}
 
         <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Email Address"
-            type="email"
-            value={emailId}
-            onChange={(e) => setEmail(e.target.value)}
-            margin="normal"
-            required
-            autoComplete="email"
-          />
+          <div className="form-control mb-3">
+            <label className="label">
+              <span className="label-text">Email Address</span>
+            </label>
+            <input
+              type="email"
+              value={emailId}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input input-bordered"
+              required
+            />
+          </div>
 
-          <TextField
-            fullWidth
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            margin="normal"
-            required
-            autoComplete="current-password"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword((prev) => !prev)} edge="end">
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+          <div className="form-control mb-3">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="input input-bordered w-full pr-10"
+                required
+              />
+              <span
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </span>
+            </div>
+          </div>
 
-          <Box display="flex" justifyContent="space-between" mt={1} mb={3}>
-            <Link to="/signup" style={{ fontSize: "14px", color: "#4f46e5", fontWeight: "500" }}>
-              Don't have an account? Sign Up
+          <div className="flex justify-between items-center text-sm mb-4">
+            <Link to="/signup" className="text-indigo-600 font-medium">
+              Don’t have an account? Sign Up
             </Link>
-          </Box>
+          </div>
 
-          <Button type="submit" variant="contained" fullWidth size="large">
+          <button type="submit" className="btn btn-primary w-full">
             Login
-          </Button>
+          </button>
         </form>
-      </Paper>
-    </Box>
+      </div>
+    </div>
   );
 }
