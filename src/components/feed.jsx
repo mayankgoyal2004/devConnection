@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedslice";
 import FeedCard from "./FeedCard";
+import { base_url } from "../utils/baseUrl";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -10,7 +11,7 @@ const Feed = () => {
 
   const fetchFeed = async function () {
     try {
-      const response = await axios.get("http://localhost:7777/feed", {
+      const response = await axios.get(base_url + "/feed", {
         withCredentials: true,
       });
       dispatch(addFeed(response.data));
@@ -23,7 +24,7 @@ const Feed = () => {
     fetchFeed();
   }, []);
 
-  if(!feed)return;
+  if (!feed) return;
   if (feed.length === 0)
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-500 text-lg">

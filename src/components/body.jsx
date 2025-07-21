@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userslice";
 import { useEffect } from "react";
+import { base_url } from "../utils/baseUrl";
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const Body = () => {
 
   const fetchData = async function () {
     try {
-      const response = await axios.get("http://localhost:7777/profile", {
+      const response = await axios.get(base_url+"/profile", {
         withCredentials: true,
       });
       dispatch(addUser(response.data));

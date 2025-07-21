@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest } from "../utils/requestslice";
+import { base_url } from "../utils/baseUrl";
 
 const Request = () => {
   const dispatch = useDispatch();
@@ -10,7 +11,7 @@ const Request = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:7777/user/request/received",
+        base_url+"/user/request/received",
         {
           withCredentials: true,
         }
@@ -24,7 +25,7 @@ const Request = () => {
   const handleDecision = async (status, requestId) => {
     try {
       await axios.patch(
-        "http://localhost:7777/request/send" + "/" + status + "/" + requestId,
+        base_url+"/request/send" + "/" + status + "/" + requestId,
         {},
         { withCredentials: true }
       );

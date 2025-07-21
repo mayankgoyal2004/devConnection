@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FeedCard from "./FeedCard";
 import axios from "axios";
 import { addUser } from "../utils/userslice";
+import { base_url } from "../utils/baseUrl";
 
 export default function Profile() {
   const user = useSelector((store) => store.user);
@@ -23,7 +24,7 @@ export default function Profile() {
       e.preventDefault();
       setError("")
       const response = await axios.patch(
-        "http://localhost:7777/profile/update",
+        base_url+"/profile/update",
         {
           firstName,
           lastName,
